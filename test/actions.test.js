@@ -1,5 +1,4 @@
 import * as actions from '../src/actions';
-
 describe('newGame()', () => {
     it('should return the action', () => {
         const fixedNumber = 50;
