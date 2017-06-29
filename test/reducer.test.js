@@ -56,3 +56,19 @@ describe('makeGuess()', () => {
     });
     
 });
+
+describe('makeGuess()', () => {
+    it('should give the correct feedback and updates the state when the valid guess is made', () => {
+        const currentState = Object.assign({}, dummyState);
+        const usersGuess=100;
+        const expectedState = Object.assign(
+            {}, 
+            currentState,
+            {guesses:[...currentState.guesses,usersGuess],feedback: 'You\'re Ice Cold...'});
+        const guessWithValidNumber = 
+                reducer(currentState, actions.makeGuess(usersGuess));
+        
+        expect(guessWithValidNumber).toEqual(expectedState);
+    });
+    
+});
