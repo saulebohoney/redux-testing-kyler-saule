@@ -8,6 +8,13 @@ const initialState = {
     showInfoModal: false
 };
 
+const dummyState = {
+    guesses: [3,78,90],
+    feedback: 'Cold!',
+    correctAnswer: 50,
+    showInfoModal: true
+};
+
 describe('reducerBaseCases', () => {
     it('sets the initialState when nothing is passed in', () => {
         const state = reducer(undefined, {type: 'foobar'});
@@ -21,16 +28,31 @@ describe('reducerBaseCases', () => {
     });
 });
 
-describe('reducerActions',() => {
+describe('newGame()',() => {
     it ('should start the newGame',() =>{
         const currentState = {
-        guesses: [3,78,90],
-        feedback: 'Make your guess!',
-        correctAnswer: 50,
-        showInfoModal: true
-    } ;
-       const state=reducer(currentState,actions.newGame(50));
+            guesses: [3,78,90],
+            feedback: 'Make your guess!',
+            correctAnswer: 50,
+            showInfoModal: true
+        };
+        const state=reducer(currentState,actions.newGame(50));
         expect(state).toEqual(initialState);
     });
 });
 
+describe('makeGuess()', () => {
+    it('should not make a guess with invalid input', () => {
+        const currentState = Object.assign({}, dummyState);
+
+        const expectedState = Object.assign(
+            {}, 
+            currentState, 
+            {feedback: 'Please enter a valid number'});
+        const guessWithNotNumber = 
+                reducer(currentState, actions.makeGuess("foobar"));
+        
+        expect(guessWithNotNumber).toEqual(expectedState);
+    });
+    
+});
